@@ -11,11 +11,11 @@
     },
 
     // *** WIRD BEI JEDEM START/REBUILD AUSGEFÜHRT ***
-    // 1. LFS-Hooks entfernen (pre-push, post-merge, post-checkout).
+    // 1. LFS-Hooks entfernen (NEU: post-commit, pre-push, post-merge, post-checkout).
     // 2. LFS-Filter aus der Konfiguration entfernen.
     // 3. Git-Merge-Strategie festlegen.
     // 4. Die wichtigsten Befehle in die Terminal-History (~) schreiben.
-    "postCreateCommand": "rm -f .git/hooks/pre-push .git/hooks/post-merge .git/hooks/post-checkout && git config --local pull.rebase false && git config --local --unset-all filter.lfs.clean || true && git config --local --unset-all filter.lfs.smudge || true && echo -e 'git remote add upstream https://github.com/alexfederlin/adventskalender2025.git\\npython speichern.py\\ngit pull upstream main' >> ~/.bash_history",
+    "postCreateCommand": "rm -f .git/hooks/pre-push .git/hooks/post-merge .git/hooks/post-checkout .git/hooks/post-commit && git config --local pull.rebase false && git config --local --unset-all filter.lfs.clean || true && git config --local --unset-all filter.lfs.smudge || true && echo -e 'git remote add upstream https://github.com/alexfederlin/adventskalender2025.git\\npython speichern.py\\ngit pull upstream main' >> ~/.bash_history",
 
     // Notwendige VS Code Extensions für Python-Entwicklung
     "customizations": {
