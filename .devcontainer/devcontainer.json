@@ -11,8 +11,10 @@
     },
 
     // *** WIRD BEI JEDEM START/REBUILD AUSGEFÜHRT ***
-    // Jetzt mit Fokus auf die Deaktivierung von Git LFS Filtern und dem Löschen des Hooks.
-    "postCreateCommand": "rm -f .git/hooks/pre-push && git config --local pull.rebase false && git config --local --unset-all filter.lfs.clean || true && git config --local --unset-all filter.lfs.smudge || true",
+    // 1. LFS-Hooks/Filter entfernen.
+    // 2. Git-Merge-Strategie festlegen.
+    // 3. Die wichtigsten Befehle in die Terminal-History (~) schreiben, um sie sofort mit PFEIL-HOCH verfügbar zu machen.
+    "postCreateCommand": "rm -f .git/hooks/pre-push && git config --local pull.rebase false && git config --local --unset-all filter.lfs.clean || true && git config --local --unset-all filter.lfs.smudge || true && echo -e 'git remote add upstream https://github.com/alexfederlin/adventskalender2025.git\\npython speichern.py\\ngit pull upstream main' >> ~/.bash_history",
 
     // Notwendige VS Code Extensions für Python-Entwicklung
     "customizations": {
