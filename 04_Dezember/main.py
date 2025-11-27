@@ -11,3 +11,4 @@ print("Wir brauchen so viele Karotten:")
 # ODER erst in einer neuen Variable 'gesamt' speichern und diese dann drucken.
 
 
+print (rentiere*karotten_pro_tier)
