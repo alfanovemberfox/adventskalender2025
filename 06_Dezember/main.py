@@ -9,4 +9,8 @@
 
 # Jetzt bist du dran - tob dich aus!
 
-
+print("   * ")
+print("  / \  ")
+print(" /   \  ")
+print(" -----  ")
+print("  |||    ")
