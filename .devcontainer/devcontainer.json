@@ -1,0 +1,30 @@
+{
+    // Die Basisumgebung. Wir verwenden das offizielle Python 3 Image.
+    "image": "mcr.microsoft.com/devcontainers/python:3",
+    
+    "features": {
+        // Optionale, aber nützliche Tools
+        "ghcr.io/devcontainers/features/common-utils:2": {}
+    },
+
+    // Notwendige VS Code Extensions für Python-Entwicklung
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                // Die offizielle Python-Erweiterung von Microsoft
+                "ms-python.python",
+                // Optionale nützliche Erweiterung
+                "ms-python.vscode-pylance",
+                // Markdown-Erweiterung für bessere Darstellung der mission.md
+                "vscode.markdown-language-features",
+                // Hinzugefügt: Für farbige Einzüge (Indentation)
+                "oderwat.indent-rainbow"
+            ],
+            // Wir können VS Code anweisen, die Dateistruktur zu erweitern, 
+            // damit die Ordnerstruktur sofort sichtbar ist.
+            "settings": {
+                "editor.renderWhitespace": "all"
+            }
+        }
+    }
+}
