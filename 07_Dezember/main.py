@@ -6,8 +6,10 @@ artigkeit = 8  # Ändere diese Zahl später zum Testen (z.B. auf 2)
 # Prüfe: Ist artigkeit größer als (>) 5?
 
     # Wenn ja: Gib "Geschenk!" aus (Denk an die Einrückung! Drücke die Tab-Taste)
-
-# else:
+if artigkeit > 5:
+    print ("Geschenke")
+else:
+    print ("keine Geschenke")
 
     # Sonst: Gib "Kohle..." aus
 
