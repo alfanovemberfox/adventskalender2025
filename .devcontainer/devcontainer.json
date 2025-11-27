@@ -1,11 +1,20 @@
 {
-    // Die Basisumgebung. Wir verwenden das offizielle Python 3 Image.
+    // Eindeutiger Name für die Codespace-Umgebung
+    "name": "Python Advent Calendar",
+    
+    // Die Basisumgebung. Wir verwenden das offizielle Python 3.12 Image.
     "image": "mcr.microsoft.com/devcontainers/python:3",
     
     "features": {
         // Optionale, aber nützliche Tools
         "ghcr.io/devcontainers/features/common-utils:2": {}
     },
+
+    // *** WIRD BEI JEDEM START/REBUILD AUSGEFÜHRT ***
+    // 1. Entfernt den fehlerhaften Git LFS Hook.
+    // 2. Stellt die Merge-Strategie für 'git pull' ein (pull.rebase false), 
+    //    um Konflikte beim Holen neuer Aufgaben zu vermeiden.
+    "postCreateCommand": "rm -f .git/hooks/pre-push && git config pull.rebase false",
 
     // Notwendige VS Code Extensions für Python-Entwicklung
     "customizations": {
@@ -17,11 +26,10 @@
                 "ms-python.vscode-pylance",
                 // Markdown-Erweiterung für bessere Darstellung der mission.md
                 "vscode.markdown-language-features",
-                // Hinzugefügt: Für farbige Einzüge (Indentation)
+                // Für farbige Einzüge (Indentation)
                 "oderwat.indent-rainbow"
             ],
-            // Wir können VS Code anweisen, die Dateistruktur zu erweitern, 
-            // damit die Ordnerstruktur sofort sichtbar ist.
+            // VS Code Einstellungen
             "settings": {
                 "editor.renderWhitespace": "all"
             }
