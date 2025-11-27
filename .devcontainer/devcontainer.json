@@ -3,7 +3,7 @@
     "name": "Python Advent Calendar",
     
     // Die Basisumgebung. Wir verwenden das offizielle Python 3.12 Image.
-    "image": "mcr.microsoft.com/devcontainers/python:3",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12",
     
     "features": {
         // Optionale, aber nützliche Tools
@@ -11,10 +11,8 @@
     },
 
     // *** WIRD BEI JEDEM START/REBUILD AUSGEFÜHRT ***
-    // 1. Entfernt den fehlerhaften Git LFS Hook.
-    // 2. Stellt die Merge-Strategie für 'git pull' ein (pull.rebase false), 
-    //    um Konflikte beim Holen neuer Aufgaben zu vermeiden.
-    "postCreateCommand": "rm -f .git/hooks/pre-push && git config pull.rebase false",
+    // Jetzt mit Fokus auf die Deaktivierung von Git LFS Filtern und dem Löschen des Hooks.
+    "postCreateCommand": "rm -f .git/hooks/pre-push && git config --local pull.rebase false && git config --local --unset-all filter.lfs.clean || true && git config --local --unset-all filter.lfs.smudge || true",
 
     // Notwendige VS Code Extensions für Python-Entwicklung
     "customizations": {
