@@ -3,7 +3,7 @@
     "name": "Python Advent Calendar",
     
     // Die Basisumgebung. Wir verwenden das offizielle Python 3.12 Image.
-    "image": "mcr.microsoft.com/devcontainers/python:3",
+    "image": "mcr.microsoft.com/devcontainers/python:3.12",
     
     "features": {
         // Optionale, aber nützliche Tools
@@ -11,10 +11,10 @@
     },
 
     // *** WIRD BEI JEDEM START/REBUILD AUSGEFÜHRT ***
-    // 1. Entfernt den fehlerhaften Git LFS Hook.
-    // 2. Stellt die Merge-Strategie für 'git pull' ein (pull.rebase false), 
-    //    um Konflikte beim Holen neuer Aufgaben zu vermeiden.
-    "postCreateCommand": "rm -f .git/hooks/pre-push && git config pull.rebase false",
+    // 1. LFS-Hooks/Filter entfernen.
+    // 2. Git-Merge-Strategie festlegen.
+    // 3. Die wichtigsten Befehle in die Terminal-History (~) schreiben, um sie sofort mit PFEIL-HOCH verfügbar zu machen.
+    "postCreateCommand": "rm -f .git/hooks/pre-push && git config --local pull.rebase false && git config --local --unset-all filter.lfs.clean || true && git config --local --unset-all filter.lfs.smudge || true && echo -e 'git remote add upstream https://github.com/alexfederlin/adventskalender2025.git\\npython speichern.py\\ngit pull upstream main' >> ~/.bash_history",
 
     // Notwendige VS Code Extensions für Python-Entwicklung
     "customizations": {
