@@ -5,3 +5,4 @@
 
 # Aufgabe: Schreibe einen print-Befehl, der "Hallo Weihnachtsmann! Aufwachen!" ausgibt.
 
+print ("Aufwachen")
