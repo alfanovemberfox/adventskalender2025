@@ -79,24 +79,37 @@ def mission_control():
     # 4. Neue Mission holen (pull)
     print("\n📡 3/3: NEUE MISSION HERUNTERLADEN & ZUSAMMENFÜHREN (PULL)...")
     
-    # Führt den Pull aus.
-    stdout_pull, stderr_pull = run_git_command("git pull upstream main")
+    # FIX: Wir setzen fail_on_error auf False, da Git Pull/Fetch-Meldungen oft in stderr landen.
+    stdout_pull, stderr_pull = run_git_command("git pull upstream main", fail_on_error=False)
+
+    # Kombinierte Ausgabe prüfen
+    pull_output = (stdout_pull or "") + (stderr_pull or "")
     
-    if stdout_pull:
-        print(stdout_pull)
-        if "Merge made by" in stdout_pull or "Already up to date" in stdout_pull:
-            print("\n✅ MISSIONS-UPDATE ERFOLGREICH!")
-            print("-------------------------------------------------------")
-            print("🚀 Starte mit der neuen Mission! (Ordner: XX_Dezember)")
-            print("-------------------------------------------------------")
-        elif "MERGE_MSG" in stdout_pull:
-            # Dieser Fall sollte nach dem Pull auftreten, wenn es einen Konflikt oder eine manuelle Bestätigung gab.
-            print("\n⚠️ WICHTIG: Prüfe, ob sich ein 'MERGE_MSG' Fenster geöffnet hat.")
-            print("Schließe es, um den Prozess abzuschließen, falls nötig.")
-        else:
-            print("\n⚠️ Download erfolgreich, aber Status unklar. Prüfe die Ordner!")
-    elif stderr_pull:
-        print(f"❌ FEHLER BEIM HERUNTERLADEN: {stderr_pull}")
+    if "Merge made by" in pull_output or "Already up to date" in pull_output:
+        # Hier landet die Meldung, wenn es ein Fast-Forward-Merge war oder nichts Neues da war.
+        print(pull_output)
+        print("\n✅ MISSIONS-UPDATE ERFOLGREICH!")
+        print("-------------------------------------------------------")
+        print("🚀 Starte mit der neuen Mission! (Ordner: XX_Dezember)")
+        print("-------------------------------------------------------")
+    elif "FETCH_HEAD" in pull_output and "fatal" not in pull_output.lower():
+        # Dies fängt die erfolgreiche Fetch-Meldung ab, die zuvor zum Fehler geführt hat.
+        print(pull_output)
+        print("\n✅ MISSIONS-UPDATE ERFOLGREICH (Fetch abgeschlossen)! Starte mit der neuen Mission.")
+        print("-------------------------------------------------------")
+        print("🚀 Starte mit der neuen Mission! (Ordner: XX_Dezember)")
+        print("-------------------------------------------------------")
+    elif "MERGE_MSG" in pull_output:
+        # Dieser Fall tritt auf, wenn es eine manuelle Bestätigung (MERGE_MSG) braucht.
+        print(pull_output)
+        print("\n⚠️ WICHTIG: Prüfe, ob sich ein 'MERGE_MSG' Fenster geöffnet hat.")
+        print("Schließe es, um den Prozess abzuschließen, falls nötig.")
+    elif "fatal" in pull_output:
+         print(f"❌ FEHLER BEIM HERUNTERLADEN: {pull_output}")
+    else:
+        # Sonstiger unklarer Status
+        print(pull_output)
+        print("\n⚠️ Download erfolgreich, aber Status unklar. Prüfe die Ordner!")
     
     print("-------------------------------------------------------")
 
